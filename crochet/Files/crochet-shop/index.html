@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knotted & Loved — Handcrafted Crochet</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  🧶 Free shipping on orders above ₹999 &nbsp;|&nbsp; Custom orders open! &nbsp;|&nbsp; Handcrafted with love ❤️
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <span class="logo-knot">✿</span> Knotted & Loved
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#customize">Customize</a></li>
+    <li><a href="#sell">Sell</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Search products..." />
+      <i class="fa fa-search"></i>
+    </div>
+    <button class="icon-btn" onclick="toggleWishlist()"><i class="fa fa-heart"></i><span class="badge" id="wishBadge">0</span></button>
+    <button class="icon-btn" onclick="toggleCart()"><i class="fa fa-shopping-bag"></i><span class="badge" id="cartBadge">0</span></button>
+    <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fa fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="toggleMobileMenu()">Home</a>
+  <a href="#shop" onclick="toggleMobileMenu()">Shop</a>
+  <a href="#customize" onclick="toggleMobileMenu()">Customize</a>
+  <a href="#sell" onclick="toggleMobileMenu()">Sell</a>
+  <a href="#about" onclick="toggleMobileMenu()">About</a>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <p class="hero-sub">Handcrafted with every loop</p>
+    <h1 class="hero-title">Crochet That<br/><em>Tells a Story</em></h1>
+    <p class="hero-desc">Discover one-of-a-kind handmade crochet pieces — or bring your imagination to life with a custom order.</p>
+    <div class="hero-btns">
+      <a href="#shop" class="btn btn-primary">Shop Now</a>
+      <a href="#customize" class="btn btn-outline">Customize Yours</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-wrap">
+      <img src="images/hero-crochet.jpg" alt="Crochet Hero" onerror="this.src='https://images.unsplash.com/photo-1610878180933-123b1f9296c5?w=600&q=80'" />
+      <div class="floating-tag tag1">🧶 100% Handmade</div>
+      <div class="floating-tag tag2">✨ Custom Orders</div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY STRIP -->
+<section class="categories">
+  <div class="cat-grid">
+    <div class="cat-card" onclick="filterProducts('bags')">
+      <div class="cat-icon">👜</div>
+      <span>Bags</span>
+    </div>
+    <div class="cat-card" onclick="filterProducts('home-decor')">
+      <div class="cat-icon">🏡</div>
+      <span>Home Décor</span>
+    </div>
+    <div class="cat-card" onclick="filterProducts('clothing')">
+      <div class="cat-icon">👗</div>
+      <span>Clothing</span>
+    </div>
+    <div class="cat-card" onclick="filterProducts('accessories')">
+      <div class="cat-icon">🎀</div>
+      <span>Accessories</span>
+    </div>
+    <div class="cat-card" onclick="filterProducts('toys')">
+      <div class="cat-icon">🧸</div>
+      <span>Amigurumi</span>
+    </div>
+    <div class="cat-card" onclick="filterProducts('')">
+      <div class="cat-icon">🛍️</div>
+      <span>All Products</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP SECTION -->
+<section class="shop-section" id="shop">
+  <div class="section-header">
+    <h2>Our Collection</h2>
+    <p>Every piece is made with love and natural yarns</p>
+  </div>
+  <div class="shop-toolbar">
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" onclick="filterProducts('')" data-cat="">All</button>
+      <button class="filter-tab" onclick="filterProducts('bags')" data-cat="bags">Bags</button>
+      <button class="filter-tab" onclick="filterProducts('home-decor')" data-cat="home-decor">Home Décor</button>
+      <button class="filter-tab" onclick="filterProducts('clothing')" data-cat="clothing">Clothing</button>
+      <button class="filter-tab" onclick="filterProducts('accessories')" data-cat="accessories">Accessories</button>
+      <button class="filter-tab" onclick="filterProducts('toys')" data-cat="toys">Amigurumi</button>
+    </div>
+    <select class="sort-select" onchange="sortProducts(this.value)">
+      <option value="">Sort by</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="popular">Most Popular</option>
+    </select>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- CUSTOMIZE SECTION -->
+<section class="customize-section" id="customize">
+  <div class="section-header light">
+    <h2>Design Your Own</h2>
+    <p>Tell us exactly what you dream — we'll crochet it for you</p>
+  </div>
+  <div class="customize-container">
+    <div class="customize-preview" id="customPreview">
+      <div class="preview-item-wrap">
+        <div class="preview-item" id="previewItem">
+          <div class="preview-emoji" id="previewEmoji">🧸</div>
+          <div class="preview-label" id="previewLabel">Your Custom Item</div>
+          <div class="preview-color-swatch" id="colorSwatch"></div>
+        </div>
+      </div>
+      <div class="preview-details">
+        <div class="preview-row"><span>Item:</span> <strong id="pItem">Not selected</strong></div>
+        <div class="preview-row"><span>Color:</span> <strong id="pColor">Not selected</strong></div>
+        <div class="preview-row"><span>Size:</span> <strong id="pSize">Not selected</strong></div>
+        <div class="preview-row"><span>Est. Price:</span> <strong id="pPrice">—</strong></div>
+      </div>
+    </div>
+    <form class="customize-form" id="customizeForm" onsubmit="submitCustomOrder(event)">
+      <h3>Customization Form</h3>
+      <div class="form-group">
+        <label>Choose Item Type *</label>
+        <div class="radio-group" id="itemTypeGroup">
+          <label class="radio-card"><input type="radio" name="itemType" value="bag" data-emoji="👜" data-base="799"/> <span>Bag</span></label>
+          <label class="radio-card"><input type="radio" name="itemType" value="amigurumi" data-emoji="🧸" data-base="599"/> <span>Amigurumi</span></label>
+          <label class="radio-card"><input type="radio" name="itemType" value="cardigan" data-emoji="🧥" data-base="1499"/> <span>Cardigan</span></label>
+          <label class="radio-card"><input type="radio" name="itemType" value="hat" data-emoji="🎩" data-base="399"/> <span>Hat / Cap</span></label>
+          <label class="radio-card"><input type="radio" name="itemType" value="wall-art" data-emoji="🖼️" data-base="999"/> <span>Wall Art</span></label>
+          <label class="radio-card"><input type="radio" name="itemType" value="pillow" data-emoji="🛋️" data-base="849"/> <span>Pillow</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Color Palette *</label>
+        <div class="color-picker-row" id="colorPickerRow">
+          <div class="color-dot selected" style="background:#e07b6b" data-color="Terracotta" onclick="selectColor(this)"></div>
+          <div class="color-dot" style="background:#7eb8a4" data-color="Sage Green" onclick="selectColor(this)"></div>
+          <div class="color-dot" style="background:#c9a96e" data-color="Warm Beige" onclick="selectColor(this)"></div>
+          <div class="color-dot" style="background:#8a7bb5" data-color="Lavender" onclick="selectColor(this)"></div>
+          <div class="color-dot" style="background:#d4799a" data-color="Dusty Rose" onclick="selectColor(this)"></div>
+          <div class="color-dot" style="background:#4a7fa5" data-color="Ocean Blue" onclick="selectColor(this)"></div>
+          <div class="color-dot" style="background:#e8c96b" data-color="Sunflower" onclick="selectColor(this)"></div>
+          <div class="color-dot" style="background:#5c4033" data-color="Chocolate" onclick="selectColor(this)"></div>
+        </div>
+        <p class="custom-color-note">Or specify a custom color: <input type="text" id="customColorText" placeholder="e.g. Mint Green, Ivory..." /></p>
+      </div>
+      <div class="form-group">
+        <label>Size *</label>
+        <div class="size-group" id="sizeGroup">
+          <button type="button" class="size-btn active" onclick="selectSize(this, 'S')">S</button>
+          <button type="button" class="size-btn" onclick="selectSize(this, 'M')">M</button>
+          <button type="button" class="size-btn" onclick="selectSize(this, 'L')">L</button>
+          <button type="button" class="size-btn" onclick="selectSize(this, 'XL')">XL</button>
+          <button type="button" class="size-btn" onclick="selectSize(this, 'Custom')">Custom</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Yarn Type</label>
+        <select id="yarnType" name="yarnType" onchange="updatePreviewPrice()">
+          <option value="cotton">Cotton (breathable, ₹0 extra)</option>
+          <option value="wool">Wool (warm, +₹200)</option>
+          <option value="acrylic">Acrylic (budget-friendly, ₹0 extra)</option>
+          <option value="bamboo">Bamboo-blend (eco, +₹150)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Add a Monogram / Name</label>
+        <input type="text" id="monogram" placeholder="e.g. Priya, S.K., ❤️" maxlength="20" />
+      </div>
+      <div class="form-group">
+        <label>Special Instructions</label>
+        <textarea id="specialNotes" rows="3" placeholder="Describe anything specific — stitch style, patterns, attachments, gifting notes..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" id="custName" required placeholder="Full name"/>
+      </div>
+      <div class="form-group">
+        <label>Email / Phone *</label>
+        <input type="text" id="custContact" required placeholder="we'll reach out to confirm your order"/>
+      </div>
+      <button type="submit" class="btn btn-primary full-width">🧶 Place Custom Order</button>
+    </form>
+  </div>
+</section>
+
+<!-- SELL SECTION -->
+<section class="sell-section" id="sell">
+  <div class="section-header">
+    <h2>Sell Your Creations</h2>
+    <p>Are you a crochet artist? Join our maker community and sell on Knotted & Loved</p>
+  </div>
+  <div class="sell-container">
+    <div class="sell-perks">
+      <div class="perk-card">
+        <div class="perk-icon">🏪</div>
+        <h4>Your Own Storefront</h4>
+        <p>List your crochet products with photos, descriptions, and pricing — fully managed by you.</p>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">💳</div>
+        <h4>Secure Payments</h4>
+        <p>Get paid directly to your bank account. 0% commission for the first 3 months.</p>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">📦</div>
+        <h4>Shipping Support</h4>
+        <p>We partner with trusted couriers so you can focus on crafting, not logistics.</p>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">📣</div>
+        <h4>Marketing Boost</h4>
+        <p>Featured listings, social media promotions, and curated collections for top sellers.</p>
+      </div>
+    </div>
+    <form class="sell-form" onsubmit="submitSellerForm(event)">
+      <h3>Become a Maker</h3>
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" required placeholder="Full name"/>
+      </div>
+      <div class="form-group">
+        <label>Shop / Brand Name *</label>
+        <input type="text" required placeholder="e.g. Yarn & Whimsy"/>
+      </div>
+      <div class="form-group">
+        <label>Email Address *</label>
+        <input type="email" required placeholder="yourname@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+91 XXXXX XXXXX"/>
+      </div>
+      <div class="form-group">
+        <label>What do you make? *</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="bags"/> Bags &amp; Pouches</label>
+          <label><input type="checkbox" value="clothing"/> Clothing</label>
+          <label><input type="checkbox" value="home"/> Home Décor</label>
+          <label><input type="checkbox" value="toys"/> Amigurumi / Toys</label>
+          <label><input type="checkbox" value="accessories"/> Accessories</label>
+          <label><input type="checkbox" value="other"/> Other</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Portfolio / Instagram Link</label>
+        <input type="url" placeholder="https://instagram.com/yourshop"/>
+      </div>
+      <div class="form-group">
+        <label>Tell us about your craft</label>
+        <textarea rows="3" placeholder="How long have you been crocheting? What makes your work special?"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary full-width">🌟 Apply to Sell</button>
+    </form>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header">
+    <h2>Happy Customers</h2>
+  </div>
+  <div class="testimonial-strip">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Ordered a custom amigurumi of my dog — it looked exactly like him! The quality was incredible."</p>
+      <strong>— Priya M., Bangalore</strong>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"The tote bag I got is gorgeous and so sturdy. I get compliments every single day!"</p>
+      <strong>— Anjali S., Mumbai</strong>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Selling here has been a dream. Within a month I had 20 orders. Highly recommend joining!"</p>
+      <strong>— Ritu V., Seller</strong>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"The packaging was so beautiful and eco-friendly. My friend loved the gifted wall hanging."</p>
+      <strong>— Meera K., Delhi</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-content">
+    <div class="about-text">
+      <h2>Our Story</h2>
+      <p>Knotted & Loved was born in a small apartment in Bangalore, with just two hooks, a ball of cotton yarn, and an abundance of passion. What started as a hobby became a platform that celebrates the timeless art of crochet.</p>
+      <p>We connect talented makers with people who appreciate handmade beauty. Every item in our store is crafted by real humans, with real care — never mass-produced.</p>
+      <div class="about-stats">
+        <div class="stat"><span>500+</span>Happy Customers</div>
+        <div class="stat"><span>80+</span>Makers</div>
+        <div class="stat"><span>1200+</span>Products Sold</div>
+      </div>
+    </div>
+    <div class="about-img">
+      <img src="images/about-crochet.jpg" alt="About us" onerror="this.src='https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80'" />
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2>Stay in the Loop 🧶</h2>
+  <p>Get new arrivals, maker stories, and exclusive deals in your inbox</p>
+  <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+    <input type="email" placeholder="yourname@email.com" required/>
+    <button type="submit" class="btn btn-primary">Subscribe</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">✿ Knotted & Loved</div>
+      <p>Handcrafted crochet from the heart of India. Made with love, delivered with care.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-pinterest"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#shop">All Products</a>
+      <a href="#shop">Bags</a>
+      <a href="#shop">Clothing</a>
+      <a href="#shop">Home Décor</a>
+      <a href="#customize">Custom Orders</a>
+    </div>
+    <div class="footer-col">
+      <h4>Sell</h4>
+      <a href="#sell">Become a Maker</a>
+      <a href="#">Seller Dashboard</a>
+      <a href="#">Seller Guidelines</a>
+      <a href="#">Community</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Returns & Refunds</a>
+      <a href="#">Track Order</a>
+      <a href="#">Contact Us</a>
+      <a href="#">FAQs</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Knotted & Loved. All rights reserved. Made with 🧶 in India.</p>
+    <p>Payments secured by <strong>Razorpay</strong></p>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="sidebar-header">
+    <h3>🛍️ Your Bag</h3>
+    <button onclick="toggleCart()"><i class="fa fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter"></div>
+</div>
+
+<!-- WISHLIST SIDEBAR -->
+<div class="cart-sidebar" id="wishlistSidebar">
+  <div class="sidebar-header">
+    <h3>❤️ Wishlist</h3>
+    <button onclick="toggleWishlist()"><i class="fa fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="wishlistItems"></div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal" onclick="closeProductModal(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeProductModal()"><i class="fa fa-times"></i></button>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
